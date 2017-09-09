@@ -5,18 +5,27 @@ class Search extends React.Component {
 
   handleSearchClick() {
     var that = this;
-    $.ajax({
-      url: `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&part=snippet&maxCount=5&videoEmbeddable=true&type=video&q=cats`,
-      type: 'GET',
-      contentType: 'application/json',
-      success: function (data) {
-        that.props.onSearchClickedCallback(data.items);
-      },
-      error: function (data) {
-        console.error('the sadness', data);
-      }
-    });
-
+    var queryParams = {
+      maxCount: 5,
+      part: 'snippet',
+      videoEmbeddable: true,
+      type: 'video',
+      key: YOUTUBE_API_KEY,
+      q: document.getElementsByClassName('form-control')[0].value
+    };
+    if (queryParams.q) {
+      $.ajax({
+        url: `https://www.googleapis.com/youtube/v3/search?${$.param(queryParams)}`,
+        type: 'GET',
+        contentType: 'application/json',
+        success: function (data) {
+          that.props.onSearchClickedCallback(data.items);
+        },
+        error: function (data) {
+          console.error('the sadness', data);
+        }
+      });
+    }
   }
 
   render() {
