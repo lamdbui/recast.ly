@@ -27,6 +27,7 @@ class App extends React.Component {
     };
     this.onVideoClicked = this.onVideoClicked.bind(this);
     this.onSearchClicked = this.onSearchClicked.bind(this);
+    this.searchYouTube = _.debounce(this.props.searchYouTube, 500);
   }
 
   componentDidMount() {
@@ -56,7 +57,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search onSearchClickedCallback={this.onSearchClicked} searchYouTube={this.props.searchYouTube}/>
+            <Search onSearchClickedCallback={this.onSearchClicked} searchYouTube={this.searchYouTube}/>
           </div>
         </nav>
         <div className="row">
