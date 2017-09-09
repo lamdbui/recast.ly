@@ -1,5 +1,5 @@
 class Search extends React.Component {
-  handleSearchClick() {
+  handleSearch() {
     var searchQuery = document.getElementsByClassName('form-control')[0].value;
     this.props.searchYouTube({max: 5, key: YOUTUBE_API_KEY, query: searchQuery}, this.props.onSearchClickedCallback);
   }
@@ -7,8 +7,8 @@ class Search extends React.Component {
   render() {
     return (
       <div className="search-bar form-inline">
-        <input className="form-control" type="text" />
-        <button className="btn hidden-sm-down" onClick={this.handleSearchClick.bind(this)}>
+        <input className="form-control" onChange={this.handleSearch.bind(this)} type="text" />
+        <button className="btn hidden-sm-down" onClick={this.handleSearch.bind(this)}>
           <span className="glyphicon glyphicon-search"></span>
         </button>
       </div>

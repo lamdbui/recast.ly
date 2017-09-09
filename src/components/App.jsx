@@ -1,20 +1,26 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.videos = [{
-      id: {
-        videoId:''
-      },
-      snippet: {
-        title: '',
-        description: '',
-        thumbnails: {
-          default: {
-            url: ''
+    this.default = {
+      videos: [{
+        id: {
+          videoId:''
+        },
+        snippet: {
+          title: '',
+          description: '',
+          thumbnails: {
+            default: {
+              url: ''
+            }
           }
-        }
-      },
-    }];
+        },
+      }],
+      maxResults: 5,
+      key: YOUTUBE_API_KEY,
+      query: 'cats'
+    };
+    this.videos = this.default.videos;
     this.state = {
       currentlyPlayingVideo: this.videos[0],
       videoLiszt: this.videos
@@ -24,7 +30,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.props.searchYouTube({max: 5, key: YOUTUBE_API_KEY, query: 'cats'}, this.onSearchClicked);
+    this.props.searchYouTube({
+      max: this.default.maxResults,
+      key: this.default.key,
+      query: this.default.query
+    }, this.onSearchClicked);
   }
 
   // TODO: try with fatty arrow function // beesting
@@ -36,7 +46,8 @@ class App extends React.Component {
 
   onSearchClicked(fetchResults) {
     this.setState({
-      videoLiszt: fetchResults
+      videoLiszt: fetchResults.length > 0 ? fetchResults : this.default.videos,
+      currentlyPlayingVideo: fetchResults.length > 0 ? fetchResults[0] : this.default.videos[0]
     });
   }
 
