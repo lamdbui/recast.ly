@@ -4,28 +4,8 @@ class Search extends React.Component {
   }
 
   handleSearchClick() {
-    var that = this;
-    var queryParams = {
-      maxCount: 5,
-      part: 'snippet',
-      videoEmbeddable: true,
-      type: 'video',
-      key: YOUTUBE_API_KEY,
-      q: document.getElementsByClassName('form-control')[0].value
-    };
-    if (queryParams.q) {
-      $.ajax({
-        url: `https://www.googleapis.com/youtube/v3/search?${$.param(queryParams)}`,
-        type: 'GET',
-        contentType: 'application/json',
-        success: function (data) {
-          that.props.onSearchClickedCallback(data.items);
-        },
-        error: function (data) {
-          console.error('the sadness', data);
-        }
-      });
-    }
+    var searchQuery = document.getElementsByClassName('form-control')[0].value;
+    searchYouTube({max: 5, key: YOUTUBE_API_KEY, query: searchQuery}, this.props.onSearchClickedCallback);
   }
 
   render() {
@@ -39,9 +19,6 @@ class Search extends React.Component {
     );
   }
 }
-
-
-
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
