@@ -1,10 +1,13 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.videos = exampleVideoData;
     this.state = {
-      currentlyPlayingVideo: exampleVideoData[0]
+      currentlyPlayingVideo: this.videos[0],
+      videoLiszt: this.videos
     };
     this.onVideoClicked = this.onVideoClicked.bind(this);
+    this.onSearchClicked = this.onSearchClicked.bind(this);
   }
 
   // TODO: try with fatty arrow function // beesting
@@ -14,12 +17,18 @@ class App extends React.Component {
     });
   }
 
+  onSearchClicked(fetchResults) {
+    this.setState({
+      videoLiszt: fetchResults
+    });
+  }
+
   render() {
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search />
+            <Search onSearchClickedCallback={this.onSearchClicked}/>
           </div>
         </nav>
         <div className="row">
@@ -27,7 +36,7 @@ class App extends React.Component {
             <VideoPlayer video={this.state.currentlyPlayingVideo}/>
           </div>
           <div className="col-md-5">
-            <VideoList videos={exampleVideoData} videoClickedStateCallback={this.onVideoClicked}/>
+            <VideoList videos={this.state.videoLiszt} videoClickedStateCallback={this.onVideoClicked}/>
           </div>
         </div>
       </div>
