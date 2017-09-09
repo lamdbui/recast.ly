@@ -1,13 +1,30 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.videos = exampleVideoData;
+    this.videos = [{
+      id: {
+        videoId:''
+      },
+      snippet: {
+        title: '',
+        description: '',
+        thumbnails: {
+          default: {
+            url: ''
+          }
+        }
+      },
+    }];
     this.state = {
       currentlyPlayingVideo: this.videos[0],
       videoLiszt: this.videos
     };
     this.onVideoClicked = this.onVideoClicked.bind(this);
     this.onSearchClicked = this.onSearchClicked.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.searchYouTube({max: 5, key: YOUTUBE_API_KEY, query: 'cats'}, this.onSearchClicked);
   }
 
   // TODO: try with fatty arrow function // beesting
@@ -28,7 +45,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search onSearchClickedCallback={this.onSearchClicked} searchYouTube={searchYouTube}/>
+            <Search onSearchClickedCallback={this.onSearchClicked} searchYouTube={this.props.searchYouTube}/>
           </div>
         </nav>
         <div className="row">

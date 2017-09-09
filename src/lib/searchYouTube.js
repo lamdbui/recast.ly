@@ -1,11 +1,11 @@
 var searchYouTube = (options, callback) => {
   var queryParams = {
-    maxResults: options.max,
+    maxResults: options.max || 5,
     part: 'snippet',
     videoEmbeddable: true,
     type: 'video',
     key: options.key,
-    q: options.query
+    q: options.query || ''
   };
   if (queryParams.q) {
     $.ajax({
