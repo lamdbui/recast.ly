@@ -1,7 +1,4 @@
 class VideoListEntry extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   handleVideoClick() {
     this.props.videoClickedStateCallback(this.props.video);

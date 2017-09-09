@@ -1,11 +1,7 @@
 class Search extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleSearchClick() {
     var searchQuery = document.getElementsByClassName('form-control')[0].value;
-    searchYouTube({max: 5, key: YOUTUBE_API_KEY, query: searchQuery}, this.props.onSearchClickedCallback);
+    this.props.searchYouTube({max: 5, key: YOUTUBE_API_KEY, query: searchQuery}, this.props.onSearchClickedCallback);
   }
 
   render() {

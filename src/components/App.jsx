@@ -28,7 +28,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search onSearchClickedCallback={this.onSearchClicked}/>
+            <Search onSearchClickedCallback={this.onSearchClicked} searchYouTube={searchYouTube}/>
           </div>
         </nav>
         <div className="row">
